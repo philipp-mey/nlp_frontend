@@ -1,0 +1,11 @@
+# environment
+.env
+.venv
+.testvenv
+.python-version
+uv.lock
+
+# cache
+__pycache__/
+.pytest_cache/
+.ruff_cache/

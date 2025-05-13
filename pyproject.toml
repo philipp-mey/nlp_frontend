@@ -1,0 +1,17 @@
+[project]
+name = "frontend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Philipp Meyer", email = "philippmeyer2003@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = []
+
+[project.scripts]
+frontend = "frontend:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
