@@ -7,7 +7,9 @@ authors = [
     { name = "Philipp Meyer", email = "philippmeyer2003@gmail.com" }
 ]
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "streamlit>=1.45.1",
+]
 
 [project.scripts]
 frontend = "frontend:main"
