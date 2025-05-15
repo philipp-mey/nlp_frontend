@@ -2,7 +2,7 @@ import subprocess
 
 
 def run_streamlit_app():
-    subprocess.run(["streamlit", "run", "src/frontend/app.py"])
+    subprocess.run(["streamlit", "run", "src/app.py"])
 
 
 if __name__ == "__main__":

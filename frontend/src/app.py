@@ -1,6 +1,6 @@
 import streamlit as st
 
-from frontend.utils.page_setup import set_page_layout
+from utils.page_setup import set_page_layout
 
 set_page_layout(page_title="Video Subtitle Translator")
 
