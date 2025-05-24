@@ -4,7 +4,8 @@ from utils.page_setup import set_page_layout
 
 set_page_layout(page_title="Library")
 
-API_URL = "http://backend:8000"
+API_URL = "http://backend:8000/v1"
+MEDIA_URL = "http://localhost:8000/media/"
 
 st.title("Your Video Library")
 st.write(
@@ -12,7 +13,7 @@ st.write(
 )
 
 try:
-    response = requests.get(f"{API_URL}/v1/videos/")
+    response = requests.get(f"{API_URL}/videos/")
     response.raise_for_status()
     videos = response.json().get("videos", [])
 
@@ -22,8 +23,9 @@ try:
         for video in videos:
             video_name = video.get("name", "Unnamed")
             with st.expander(f"{video_name}", expanded=False):
-                # Prepend API_URL so Streamlit fetches from backend
-                st.video(f"{API_URL}{video.get('video_url', '')}")
+                video_url = f"{MEDIA_URL}{video_name}"
+                st.video(data=video_url)
+
                 st.markdown(
                     f"**Language:** {video.get('language', 'unknown')}"
                 )
@@ -32,9 +34,8 @@ try:
                 st.markdown("**Translated Subtitles:**")
                 st.code(video.get("translated_text", ""))
 
-                if "translated_srt_url" in video:
-                    # Prepend API_URL so requests fetches from backend, not local Streamlit
-                    srt_url = f"{API_URL}{video['translated_srt_url']}"
+                if video.get("translated_srt_url"):
+                    srt_url = f"{MEDIA_URL}{video['translated_srt_url']}"
                     st.download_button(
                         "Download translated subtitles (.srt)",
                         data=requests.get(srt_url).content,
