@@ -6,6 +6,9 @@ set_page_layout(page_title="Upload Video")
 
 API_URL = "http://backend:8000"
 
+st.write(
+    ":hourglass_flowing_sand: **Note:** Video processing and translation may take several minutes due to on-premises processing. Please be patient after submitting your video."
+)
 
 video = st.file_uploader("Upload a video file", type=["mp4", "avi", "mov"])
 target_language = st.selectbox(

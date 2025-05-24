@@ -7,7 +7,6 @@ set_page_layout(page_title="Library")
 API_URL = "http://backend:8000/v1"
 MEDIA_URL = "http://localhost:8000/media/"
 
-st.title("Your Video Library")
 st.write(
     "Welcome to your video library! Here you can manage your videos, view subtitles, and more."
 )
