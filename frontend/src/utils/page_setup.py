@@ -32,14 +32,14 @@ def set_page_layout(page_title: str):
         st.markdown("---")
         st.markdown(
             """
-            Placeholder for oneliner text. This is a placeholder for the oneliner text that will be displayed in the sidebar."""
+            This Streamlit frontend demonstrates the capabilities of our PyPI translation package installable via
+            ```pip install easy-nlp-translate```."""
         )
         st.markdown(
             """
             Further description of the app. This is a placeholder for the further description of the app that will be displayed in the sidebar.
             """
         )
-
         st.caption(
             """
             Developed by *Philipp Meyer, Ole Schildt & Kevin Schäfer* as part of the **Natural Language Processing** course, taught by *Raffael Veser*.
