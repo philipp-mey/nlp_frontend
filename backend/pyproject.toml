@@ -3,11 +3,10 @@ name = "backend"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
+    "easy-nlp-translate>=0.3.0",
     "fastapi>=0.115.12",
     "faster-whisper>=1.1.1",
-    "ffmpeg-python>=0.2.0",
-    "python-multipart>=0.0.20",
-    "uvicorn>=0.34.2",
+    "ffmpeg>=1.4",
 ]
