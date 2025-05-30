@@ -13,4 +13,4 @@ RUN uv sync
 
 EXPOSE 8501
 
-ENTRYPOINT ["uv", "run", "main.py"]
+CMD ["uv", "run", "main.py"]
