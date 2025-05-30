@@ -1,0 +1,3 @@
+[client]
+# Default: true
+showSidebarNavigation = false
