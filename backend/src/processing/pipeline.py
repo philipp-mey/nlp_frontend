@@ -2,6 +2,7 @@ import logging
 import os
 
 from src.services.audio import extract_audio_from_video
+from src.services.file_utils import move_files_to_uuid_folder, remove_file
 from src.services.srt_writer import (
     generate_srt_file,
     generate_translated_srt_file,
@@ -63,3 +64,15 @@ def process_video(file_path: str, target_lang: str) -> None:
     except Exception as e:
         logger.error("SRT writing failed: %s", e, exc_info=True)
         raise RuntimeError("SRT writing failed") from e
+
+    # 5. Cleanup audio file
+    try:
+        move_files_to_uuid_folder(
+            files=[srt_path, translated_srt_path, file_path],
+            destination_root="media/processed",
+        )
+        remove_file(audio_path)
+        logger.info("Moved files to UUID folder and cleaned up.")
+    except Exception as e:
+        logger.error("Failed to move files: %s", e, exc_info=True)
+        raise RuntimeError("Failed to move files") from e
