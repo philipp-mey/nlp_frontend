@@ -1,3 +1,5 @@
+# frontend/src/pages/1_⬆️_Upload.py
+
 import time
 
 import requests
@@ -12,104 +14,165 @@ st.write(
     ":hourglass_flowing_sand: **Note:** Video processing and translation may take several minutes due to on-premises processing. Please be patient after submitting your video."
 )
 
-# Language mapping for API
+# Language mapping for API (matching common language codes)
 LANGUAGE_CODES = {
     "English": "en",
     "Spanish": "es",
     "French": "fr",
     "German": "de",
+    "Italian": "it",
+    "Portuguese": "pt",
+    "Russian": "ru",
+    "Japanese": "ja",
+    "Korean": "ko",
+    "Chinese": "zh",
+    "Dutch": "nl",
+    "Arabic": "ar",
+    "Hindi": "hi",
 }
 
 with st.form("upload_form", clear_on_submit=True):
     video = st.file_uploader(
-        "Upload a video file", type=["mp4", "avi", "mov", "mpeg4"]
+        "Upload a video file",
+        type=["mp4", "avi", "mov", "mkv", "webm", "flv", "mpeg4"],
     )
     target_language = st.selectbox(
-        "Select target language",
-        ["English", "Spanish", "French", "German"],
+        "Select target language for translation",
+        list(LANGUAGE_CODES.keys()),
     )
-    submit_button = st.form_submit_button("Upload and Translate")
+    submit_button = st.form_submit_button("Upload and Process Video")
 
 if submit_button and video:
-    with st.spinner("Uploading video..."):
+    # File size validation
+    if video.size > 500 * 1024 * 1024:  # 500MB limit
+        st.error(
+            "File size too large. Please upload a video smaller than 500MB."
+        )
+        st.stop()
+
+    with st.spinner("Uploading and starting video processing..."):
         try:
-            files = {"file": (video.name, video, video.type)}
-            data = {
-                "target_language": LANGUAGE_CODES[target_language],
-            }
+            # Prepare the request
+            files = {"video": (video.name, video.getvalue(), video.type)}
+            data = {"target_lang": LANGUAGE_CODES[target_language]}
+
+            # Upload video and start background processing
             response = requests.post(
-                f"{API_URL}/upload/", files=files, data=data
+                f"{API_URL}/upload/",
+                files=files,
+                data=data,
+                timeout=60,  # 1 minute timeout for upload
             )
             response.raise_for_status()
 
             upload_result = response.json()
-            video_id = upload_result["video_id"]
+
+            # Show upload success
             st.success(upload_result["message"])
+
+            # Display upload details
+            col1, col2 = st.columns(2)
+            with col1:
+                st.metric("Uploaded File", upload_result["filename"])
+            with col2:
+                st.metric("Target Language", target_language)
+
+            # Store upload info in session state
+            if "uploaded_videos" not in st.session_state:
+                st.session_state.uploaded_videos = []
+
+            video_info = {
+                "filename": upload_result["filename"],
+                "saved_path": upload_result["saved_path"],
+                "target_language": target_language,
+                "target_lang_code": upload_result["target_lang"],
+                "upload_time": time.strftime("%Y-%m-%d %H:%M:%S"),
+                "status": "processing",
+            }
+
+            st.session_state.uploaded_videos.append(video_info)
+
+            # Show processing information
+            st.info("🎬 Your video is now being processed in the background!")
+            st.info("📁 File saved at: " + upload_result["saved_path"])
+
+            # Instructions for user
+            st.markdown("""
+            ### What happens next?
+            1. **Audio extraction** - Converting video to audio format
+            2. **Transcription** - Generating subtitles from audio
+            3. **Translation** - Translating subtitles to your target language
+            4. **File generation** - Creating SRT subtitle files
+            
+            ### How to check your results:
+            - Processing typically takes 2-10 minutes depending on video length
+            - Check the **Download** page periodically for your processed files
+            - Look for files with your target language code: `{upload_result["target_lang"]}`
+            """)
+
+            # Show expected output files
+            base_name = upload_result["filename"].rsplit(".", 1)[0]
+            st.markdown("### Expected output files:")
+            st.code(f"""
+Original subtitles: {base_name}.srt
+Translated subtitles: {base_name}.{upload_result["target_lang"]}.srt
+            """)
+
+        except requests.exceptions.Timeout:
+            st.error(
+                "Upload timed out. Please check your internet connection and try again."
+            )
 
         except requests.exceptions.RequestException as e:
             st.error(f"Upload failed: {str(e)}")
-            st.stop()
 
-    with st.spinner("Starting video processing..."):
-        try:
-            response = requests.post(f"{API_URL}/process/{video_id}")
-            response.raise_for_status()
-
-        except requests.exceptions.RequestException as e:
-            st.error(f"Failed to start processing: {str(e)}")
-            st.stop()
-
-    progress_placeholder = st.empty()
-    status_placeholder = st.empty()
-
-    with st.spinner("Processing video..."):
-        while True:
-            try:
-                response = requests.get(f"{API_URL}/status/{video_id}")
-                response.raise_for_status()
-                status_data = response.json()
-
-                status = status_data["status"]
-                status_placeholder.info(f"Status: {status}")
-
-                if status == "completed":
-                    st.balloons()
-                    st.success("Video processed successfully!")
-
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        st.metric(
-                            "Source Language",
-                            status_data.get("source_language", "N/A"),
-                        )
-                    with col2:
-                        st.metric("Target Language", target_language)
-
-                    if "processed_videos" not in st.session_state:
-                        st.session_state.processed_videos = []
-                    st.session_state.processed_videos.append(
-                        {
-                            "video_id": video_id,
-                            "filename": video.name,
-                            "source_language": status_data.get(
-                                "source_language"
-                            ),
-                            "target_language": target_language,
-                        }
+            if hasattr(e, "response") and e.response is not None:
+                try:
+                    error_details = e.response.json()
+                    if "detail" in error_details:
+                        st.error(f"Server error: {error_details['detail']}")
+                except:
+                    st.error(
+                        f"HTTP {e.response.status_code}: {e.response.text}"
                     )
 
-                    st.info(f"Video ID: {video_id}")
-                    st.info(
-                        "You can download the subtitles from the Download page."
-                    )
-                    break
+        except Exception as e:
+            st.error(f"An unexpected error occurred: {str(e)}")
 
-                elif status == "failed":
-                    st.error("Video processing failed!")
-                    break
+elif submit_button and not video:
+    st.warning("Please upload a video file before submitting.")
 
-                time.sleep(2)
+# Show recently uploaded videos
+if "uploaded_videos" in st.session_state and st.session_state.uploaded_videos:
+    st.subheader("Recently Uploaded Videos")
 
-            except requests.exceptions.RequestException as e:
-                st.error(f"Failed to check status: {str(e)}")
-                break
+    for i, video_info in enumerate(
+        reversed(st.session_state.uploaded_videos[-5:])
+    ):  # Show last 5
+        with st.expander(
+            f"📹 {video_info['filename']} - {video_info['upload_time']}"
+        ):
+            col1, col2 = st.columns(2)
+            with col1:
+                st.text(f"Target Language: {video_info['target_language']}")
+                st.text(f"Language Code: {video_info['target_lang_code']}")
+            with col2:
+                st.text(f"Upload Time: {video_info['upload_time']}")
+                st.text(f"Status: {video_info['status']}")
+
+            st.text(f"Saved Path: {video_info['saved_path']}")
+
+# Add a section about checking results
+st.markdown("""
+---
+### 💡 Tips:
+- **Large files** take longer to process
+- **Longer videos** require more processing time
+- **Clear audio** produces better transcription results
+- Check the **Download** page for your processed subtitle files
+- Both original and translated subtitle files will be available
+""")
+
+# Optional: Add a refresh button to check for new processed files
+if st.button("🔄 Refresh Page"):
+    st.rerun()

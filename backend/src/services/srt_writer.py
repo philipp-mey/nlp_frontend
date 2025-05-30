@@ -78,4 +78,5 @@ def generate_translated_srt_file(
     srt_text = srt.compose(srt_segments)
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(srt_text)
+        f.close()
     return output_path
