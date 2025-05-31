@@ -35,7 +35,6 @@ try:
         )
     else:
         if st.session_state.selected_video:
-            # Video player view
             video = st.session_state.selected_video
             video_id = video.get("video_id")
 
@@ -45,7 +44,6 @@ try:
 
             st.subheader(f"🎬 {video.get('name', 'Unnamed Video')}")
 
-            # Get available subtitles
             available_subtitles = []
             try:
                 subtitles_response = requests.get(
@@ -84,7 +82,7 @@ try:
                         raise ValueError(
                             "Subtitle file does not exist on the server."
                         )
-                # Video player with subtitles
+
                 enable_subtitles = st.checkbox("Enable subtitles", value=True)
 
                 if subtitle_url and enable_subtitles:
@@ -116,17 +114,13 @@ try:
                 else:
                     st.write("No subtitles available")
 
-                # Video info
                 st.write("**Video Info:**")
-                st.write(f"ID: {video_id}")
                 if video.get("subtitle_count", 0) > 0:
                     st.write(f"Subtitles: {video['subtitle_count']} files")
 
         else:
-            # Video grid view
             st.write(f"Found {len(videos)} video(s) in your library")
 
-            # Create a responsive grid
             cols_per_row = 3
             for i in range(0, len(videos), cols_per_row):
                 cols = st.columns(cols_per_row)
@@ -142,7 +136,6 @@ try:
                                 video_name = video.get("name", "Unnamed")
                                 st.write(f"**{video_name}**")
 
-                                # Show subtitle info
                                 subtitle_count = video.get("subtitle_count", 0)
                                 if subtitle_count > 0:
                                     st.caption(
@@ -151,25 +144,21 @@ try:
                                 else:
                                     st.caption("🚫 No subtitles")
 
-                                # Get subtitle languages
-                                try:
-                                    video_id = video.get("video_id")
-                                    subs_resp = requests.get(
-                                        f"{API_URL}/videos/{video_id}/subtitles"
+                                video_id = video.get("video_id")
+                                subs_resp = requests.get(
+                                    f"{API_URL}/videos/{video_id}/subtitles"
+                                )
+                                if subs_resp.status_code == 200:
+                                    subs = subs_resp.json().get(
+                                        "subtitles", []
                                     )
-                                    if subs_resp.status_code == 200:
-                                        subs = subs_resp.json().get(
-                                            "subtitles", []
+                                    if subs:
+                                        languages = [
+                                            s["language"] for s in subs
+                                        ]
+                                        st.caption(
+                                            f"Languages: {', '.join(languages)}"
                                         )
-                                        if subs:
-                                            languages = [
-                                                s["language"] for s in subs
-                                            ]
-                                            st.caption(
-                                                f"Languages: {', '.join(languages)}"
-                                            )
-                                except:
-                                    pass
 
                                 if st.button("▶️ Watch", key=f"watch_{i + j}"):
                                     st.session_state.selected_video = video
