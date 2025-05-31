@@ -1,0 +1,344 @@
+1
+00:00:00,000 --> 00:00:09,920
+ Every day, billions of people come here with questions about all kinds of things.
+
+2
+00:00:09,920 --> 00:00:15,200
+ Sometimes we even get questions about Google search itself, like how this whole thing actually
+
+3
+00:00:15,200 --> 00:00:16,280
+ works.
+
+4
+00:00:16,280 --> 00:00:20,200
+ And while this is a subject entire books have been written about, there's a good chance
+
+5
+00:00:20,200 --> 00:00:23,360
+ you're in the market for something a little more concise.
+
+6
+00:00:23,360 --> 00:00:29,960
+ So let's say it's getting close to dinner and you want a recipe for lasagna.
+
+7
+00:00:29,960 --> 00:00:34,440
+ You've probably seen this before, but let's go a little deeper.
+
+8
+00:00:34,440 --> 00:00:39,280
+ Since the beginning, back when the homepage looked like this, Google has been continuously
+
+9
+00:00:39,280 --> 00:00:44,760
+ mapping the web, hundreds of billions of pages, to create something called an index.
+
+10
+00:00:44,760 --> 00:00:49,960
+ Think of it as the giant library we look through whenever you do a search for lasagna or anything
+
+11
+00:00:49,960 --> 00:00:50,960
+ else.
+
+12
+00:00:50,960 --> 00:00:53,840
+ Now, the word lasagna shows up a lot on the web.
+
+13
+00:00:53,840 --> 00:00:58,080
+ Pages about the history of lasagna, articles by scientists whose last name happened to
+
+14
+00:00:58,080 --> 00:01:01,880
+ be lasagna, stuff other people might be looking for.
+
+15
+00:01:01,880 --> 00:01:06,560
+ But if you're hungry, randomly clicking through millions of links is no fun.
+
+16
+00:01:06,560 --> 00:01:09,560
+ This is where Google's ranking algorithms come into play.
+
+17
+00:01:09,560 --> 00:01:14,000
+ First, they try to understand what you're looking for, so they can be helpful even if
+
+18
+00:01:14,000 --> 00:01:18,520
+ you don't know exactly the right words to use or if your spelling is a little off.
+
+19
+00:01:18,520 --> 00:01:22,880
+ Then they sift through millions of possible matches in the index and automatically assemble
+
+20
+00:01:22,880 --> 00:01:27,600
+ a page that tries to put the most relevant information up top for you to choose from.
+
+21
+00:01:27,600 --> 00:01:29,680
+ Okay, now we have some results.
+
+22
+00:01:29,680 --> 00:01:34,400
+ But how did the algorithms actually decide what made it onto the first page?
+
+23
+00:01:34,400 --> 00:01:38,040
+ There are hundreds of factors that go into ranking search results, so let's talk about
+
+24
+00:01:38,040 --> 00:01:39,360
+ a few of them.
+
+25
+00:01:39,360 --> 00:01:43,480
+ You may already know that pages containing the words you search for are more likely to
+
+26
+00:01:43,480 --> 00:01:44,760
+ end up at the top.
+
+27
+00:01:44,760 --> 00:01:46,200
+ No surprise there.
+
+28
+00:01:46,200 --> 00:01:51,120
+ But the location of those words, like in the page's title or in an image's caption,
+
+29
+00:01:51,120 --> 00:01:52,600
+ those are factors too.
+
+30
+00:01:52,600 --> 00:01:55,280
+ There's a lot more to ranking than just words.
+
+31
+00:01:55,280 --> 00:01:59,440
+ Like when Google got started, we looked at how pages linked to each other to better understand
+
+32
+00:01:59,440 --> 00:02:03,360
+ what pages were about and how important and trustworthy they seemed.
+
+33
+00:02:03,360 --> 00:02:06,080
+ Today, linking is still an important factor.
+
+34
+00:02:06,080 --> 00:02:09,840
+ Another factor is location, where a search happens.
+
+35
+00:02:09,840 --> 00:02:13,960
+ Because if you happen to be in Ormea, Italy, you might be looking for information about
+
+36
+00:02:13,960 --> 00:02:16,160
+ their annual lasagna festival.
+
+37
+00:02:16,160 --> 00:02:20,280
+ But if you're in Omaha, Nebraska, you probably aren't.
+
+38
+00:02:20,280 --> 00:02:23,960
+ When a webpage was uploaded is an important factor too.
+
+39
+00:02:23,960 --> 00:02:27,960
+ Scammers published more recently often have more accurate information, especially in the
+
+40
+00:02:27,960 --> 00:02:30,800
+ case of a rapidly developing news story.
+
+41
+00:02:30,800 --> 00:02:34,600
+ Of course, not every site on the web is trying to be helpful.
+
+42
+00:02:34,600 --> 00:02:38,680
+ Just like with robocalls on your phone or spam in your email, there are a lot of sites
+
+43
+00:02:38,680 --> 00:02:43,840
+ that only exist to scam, and every day scammers upload millions more of them.
+
+44
+00:02:43,840 --> 00:02:49,880
+ So just because InstantVirusDownload.net lists the words lasagna recipe 400 times, that doesn't
+
+45
+00:02:49,880 --> 00:02:51,800
+ mean it's going to help you make dinner.
+
+46
+00:02:51,800 --> 00:02:55,640
+ We spend a lot of time trying to stay one step ahead of tricks like these, making sure
+
+47
+00:02:55,640 --> 00:02:59,440
+ our algorithms can recognize scam sites and flag them before they make it to your search
+
+48
+00:02:59,440 --> 00:03:01,160
+ results page.
+
+49
+00:03:01,160 --> 00:03:02,880
+ So let's review.
+
+50
+00:03:02,880 --> 00:03:08,040
+ Billions of times a day, whenever someone searches for a lasagna, or resume writing tips,
+
+51
+00:03:08,040 --> 00:03:12,840
+ or how to swaddle a baby, or anything else, Google's software locates all the potentially
+
+52
+00:03:12,840 --> 00:03:17,080
+ relevant results on the web, removes all the spam, and ranks them based on hundreds of
+
+53
+00:03:17,080 --> 00:03:21,080
+ factors like keywords, links, location, and freshness.
+
+54
+00:03:21,360 --> 00:03:24,200
+ Okay, good time to take a breath.
+
+55
+00:03:24,200 --> 00:03:28,680
+ This last part is about how we make changes to search, and it's important.
+
+56
+00:03:28,680 --> 00:03:34,200
+ Since 1998, when Google went online, people seem to have found our results pretty helpful.
+
+57
+00:03:34,200 --> 00:03:38,360
+ But the web is always changing, and people are always searching for new things.
+
+58
+00:03:38,360 --> 00:03:42,880
+ In fact, one in every seven searches is for something that's never been typed into the
+
+59
+00:03:42,880 --> 00:03:46,480
+ search box before, by anyone, ever.
+
+60
+00:03:46,480 --> 00:03:51,240
+ So we're always working in updates to search, thousands every year.
+
+61
+00:03:51,240 --> 00:03:53,360
+ Which brings up a big question.
+
+62
+00:03:53,360 --> 00:03:56,720
+ How do we decide whether a change is making search more helpful?
+
+63
+00:03:56,720 --> 00:04:01,280
+ Well, one of the ways we evaluate potential updates to search is by asking people like
+
+64
+00:04:01,280 --> 00:04:02,280
+ you.
+
+65
+00:04:02,280 --> 00:04:06,200
+ Every day, thousands of search quality raters look at samples of search results side by
+
+66
+00:04:06,200 --> 00:04:11,600
+ side, then give feedback about the relevance and reliability of the information.
+
+67
+00:04:11,600 --> 00:04:15,880
+ To make sure those evaluations are consistent, the raters follow a list of search quality
+
+68
+00:04:15,880 --> 00:04:17,800
+ evaluator guidelines.
+
+69
+00:04:17,800 --> 00:04:22,040
+ Think of them as our publicly available guide to what makes a good result good.
+
+70
+00:04:22,040 --> 00:04:24,360
+ Oh, and one last thing to remember.
+
+71
+00:04:24,360 --> 00:04:29,640
+ We use responses from raters to evaluate changes, but they don't directly impact how search
+
+72
+00:04:29,640 --> 00:04:31,160
+ results are ranked.
+
+73
+00:04:31,160 --> 00:04:32,680
+ So there you have it.
+
+74
+00:04:32,680 --> 00:04:36,440
+ Every time you click search, our algorithms are analyzing the meaning of the words in
+
+75
+00:04:36,440 --> 00:04:41,240
+ your search, matching them to the content on the web, understanding what content is most
+
+76
+00:04:41,240 --> 00:04:45,160
+ likely to be helpful and reliable, and then automatically putting it all together in a
+
+77
+00:04:45,160 --> 00:04:48,720
+ neatly organized page designed to get you the info you need.
+
+78
+00:04:48,720 --> 00:04:49,720
+ All in?
+
+79
+00:04:49,720 --> 00:04:50,720
+ Oh, .81 seconds?
+
+80
+00:04:50,720 --> 00:04:51,720
+ Wow.
+
+81
+00:04:51,720 --> 00:04:55,720
+ Anyone else ready for dinner?
+
+82
+00:04:55,720 --> 00:04:56,720
+ Interested in learning more?
+
+83
+00:04:56,720 --> 00:04:59,880
+ We've got a whole website dedicated to how search works.
+
+84
+00:04:59,880 --> 00:05:01,840
+ Just click right here.
+
+85
+00:05:01,840 --> 00:05:04,640
+ Want to read the search quality radar guidelines for yourself?
+
+86
+00:05:04,640 --> 00:05:05,240
+ Click right here.
+
