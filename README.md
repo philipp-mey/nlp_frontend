@@ -6,7 +6,7 @@ This project provides a complete video processing and translation pipeline built
 
 ## Features
 
-- **Upload videos** in various formats (e.g., MP4, AVI, MOV) up to 500MB.
+- **Upload videos** in various formats (e.g., MP4, AVI, MOV) up to 200MB.
 - **Audio extraction** from uploaded videos.
 - **Subtitle transcription** in the video's original language.
 - **Subtitle translation** into multiple supported languages.
