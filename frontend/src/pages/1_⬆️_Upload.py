@@ -1,5 +1,3 @@
-# frontend/src/pages/1_⬆️_Upload.py
-
 import time
 
 import requests
@@ -52,32 +50,27 @@ if submit_button and video:
 
     with st.spinner("Uploading and starting video processing..."):
         try:
-            # Prepare the request
             files = {"video": (video.name, video.getvalue(), video.type)}
             data = {"target_lang": LANGUAGE_CODES[target_language]}
 
-            # Upload video and start background processing
             response = requests.post(
                 f"{API_URL}/upload/",
                 files=files,
                 data=data,
-                timeout=60,  # 1 minute timeout for upload
+                timeout=60,
             )
             response.raise_for_status()
 
             upload_result = response.json()
 
-            # Show upload success
             st.success(upload_result["message"])
 
-            # Display upload details
             col1, col2 = st.columns(2)
             with col1:
                 st.metric("Uploaded File", upload_result["filename"])
             with col2:
                 st.metric("Target Language", target_language)
 
-            # Store upload info in session state
             if "uploaded_videos" not in st.session_state:
                 st.session_state.uploaded_videos = []
 
@@ -92,11 +85,9 @@ if submit_button and video:
 
             st.session_state.uploaded_videos.append(video_info)
 
-            # Show processing information
             st.info("🎬 Your video is now being processed in the background!")
             st.info("📁 File saved at: " + upload_result["saved_path"])
 
-            # Instructions for user
             st.markdown("""
             ### What happens next?
             1. **Audio extraction** - Converting video to audio format
@@ -110,7 +101,6 @@ if submit_button and video:
             - Look for files with your target language code: `{upload_result["target_lang"]}`
             """)
 
-            # Show expected output files
             base_name = upload_result["filename"].rsplit(".", 1)[0]
             st.markdown("### Expected output files:")
             st.code(f"""
@@ -142,13 +132,13 @@ Translated subtitles: {base_name}.{upload_result["target_lang"]}.srt
 elif submit_button and not video:
     st.warning("Please upload a video file before submitting.")
 
-# Show recently uploaded videos
+
 if "uploaded_videos" in st.session_state and st.session_state.uploaded_videos:
     st.subheader("Recently Uploaded Videos")
 
     for i, video_info in enumerate(
         reversed(st.session_state.uploaded_videos[-5:])
-    ):  # Show last 5
+    ):
         with st.expander(
             f"📹 {video_info['filename']} - {video_info['upload_time']}"
         ):
@@ -162,7 +152,7 @@ if "uploaded_videos" in st.session_state and st.session_state.uploaded_videos:
 
             st.text(f"Saved Path: {video_info['saved_path']}")
 
-# Add a section about checking results
+
 st.markdown("""
 ---
 ### 💡 Tips:
@@ -173,6 +163,6 @@ st.markdown("""
 - Both original and translated subtitle files will be available
 """)
 
-# Optional: Add a refresh button to check for new processed files
+
 if st.button("🔄 Refresh Page"):
     st.rerun()
