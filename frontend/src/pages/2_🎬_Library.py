@@ -1,10 +1,13 @@
+import os
+from urllib.parse import quote
+
 import requests
 import streamlit as st
 from utils.page_setup import set_page_layout
 
 set_page_layout(page_title="Library")
 
-API_URL = "http://localhost:8000/v1"
+API_URL = "http://backend:8000/v1"
 BASE_URL = "http://localhost:8000"
 
 st.title("📚 Video Library")
@@ -12,13 +15,11 @@ st.write(
     "Browse your processed videos. Click on any video to watch it with subtitles."
 )
 
-# Add refresh button
 col1, col2 = st.columns([1, 4])
 with col1:
     if st.button("🔄 Refresh"):
         st.rerun()
 
-# Initialize session state for selected video
 if "selected_video" not in st.session_state:
     st.session_state.selected_video = None
 
@@ -60,11 +61,8 @@ try:
             col1, col2 = st.columns([3, 1])
 
             with col1:
-                # Video player
                 video_url = f"{BASE_URL}/media/{video.get('path')}"
-
-                # Subtitle selection
-                subtitle_url = None
+                subtitle_url = f"{BASE_URL}/media/{video.get('path')}"
                 if available_subtitles:
                     if len(available_subtitles) > 1:
                         subtitle_options = {
@@ -82,7 +80,10 @@ try:
                     subtitle_url = (
                         f"../backend/media/{selected_subtitle['path']}"
                     )
-
+                    if not os.path.exists(subtitle_url):
+                        raise ValueError(
+                            "Subtitle file does not exist on the server."
+                        )
                 # Video player with subtitles
                 enable_subtitles = st.checkbox("Enable subtitles", value=True)
 
@@ -99,36 +100,19 @@ try:
                     st.video(video_url)
 
             with col2:
-                # Subtitle downloads
                 st.write("**Available Subtitles:**")
                 if available_subtitles:
                     for subtitle in available_subtitles:
                         st.write(
                             f"🌐 {subtitle['language']} ({subtitle['type']})"
                         )
-
-                        try:
-                            download_url = (
-                                f"{BASE_URL}/media/{subtitle['path']}"
-                            )
-                            subtitle_response = requests.get(download_url)
-
-                            if subtitle_response.status_code == 200:
-                                st.download_button(
-                                    f"📥 Download {subtitle['language']}",
-                                    data=subtitle_response.content,
-                                    file_name=subtitle["filename"],
-                                    mime="text/plain",
-                                    key=f"download_{subtitle['filename']}",
-                                )
-                            else:
-                                st.error(
-                                    f"File not available (Status: {subtitle_response.status_code})"
-                                )
-                        except Exception as e:
-                            st.error(
-                                f"Error downloading {subtitle['language']}: {e}"
-                            )
+                        download_url = (
+                            f"{BASE_URL}/media/{quote(subtitle['path'])}"
+                        )
+                        st.markdown(
+                            f"[📥 Download {subtitle['language']}]({download_url})",
+                            unsafe_allow_html=True,
+                        )
                 else:
                     st.write("No subtitles available")
 
